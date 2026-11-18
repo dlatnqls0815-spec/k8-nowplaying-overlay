@@ -1,0 +1,3 @@
+name=K8 call split screen
+summary=Keep the split screen page when a Bluetooth call is answered
+note=Turn on and restart the head unit once. The now-playing overlay shows the call. Turn off and restart to undo.
