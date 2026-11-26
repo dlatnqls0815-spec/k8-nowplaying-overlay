@@ -17,7 +17,7 @@ OUT = ROOT / "private" / "nemesis-apk"
 PACKAGE_ID = "k8np.install"
 SHORT_DESC = "K8 Now Playing overlay app installer"
 DETAILED_DESC = ("Installs the bundled K8 Now Playing overlay APK with pm install -r (sys.boot_completed is set "
-                 "to 0 only during the install and always restored). Launch to install again and see the result.")
+                 "to 0 only during the install and always restored). Launch to install again. Uninstall removes the app too.")
 ZIP_TIME = (2026, 11, 18, 0, 0, 0)
 
 
@@ -28,7 +28,8 @@ def descriptor(version):
         "[nemesis]", "version=1.1", "id=" + PACKAGE_ID, "name=K8 Now Playing Installer",
         "type=application", "package-version=" + version,
         'short-desc="' + SHORT_DESC + '"', 'detailed-desc="' + DETAILED_DESC + '"',
-        "os=any", "models=any", "postinstall=scripts/postinstall.sh", "",
+        "os=any", "models=any", "postinstall=scripts/postinstall.sh",
+        "preuninstall=scripts/preuninstall.sh", "",
         "[app.0]", "kind=sh", "path=bin/install.sh", "uid=root", "",
     ])
 
@@ -62,6 +63,8 @@ def main(argv=None):
         z.writestr(entry("NEMESIS.data", 0o644), descriptor(a.version))
         z.writestr(entry("bin/install.sh", 0o755), script(SRC / "bin" / "install.sh"))
         z.writestr(entry("scripts/postinstall.sh", 0o755), script(SRC / "scripts" / "postinstall.sh"))
+        z.writestr(entry("bin/uninstall.sh", 0o755), script(SRC / "bin" / "uninstall.sh"))
+        z.writestr(entry("scripts/preuninstall.sh", 0o755), script(SRC / "scripts" / "preuninstall.sh"))
         info = entry("apk/k8-nowplaying.apk", 0o644)
         info.compress_type = zipfile.ZIP_STORED
         z.writestr(info, apk)
