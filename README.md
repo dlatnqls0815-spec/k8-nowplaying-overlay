@@ -23,6 +23,12 @@
 
 설치기는 `pm install -r`을 하는 동안만 `sys.boot_completed`를 0으로 두고 바로 되돌립니다([nemesis-apk/bin/install.sh](nemesis-apk/bin/install.sh)).
 
+## 삭제
+
+- **0.4.6 이후 설치기**: Manager → My Packages → K8 Now Playing Installer → Uninstall하면 앱도 같이 지워집니다([nemesis-apk/scripts/preuninstall.sh](nemesis-apk/scripts/preuninstall.sh)). 버튼 도우미 `k8np.keys`도 Uninstall합니다.
+- **0.4.5 이하로 설치한 경우**: 그 설치기는 Uninstall해도 앱이 남습니다. 삭제기 `K8-nowplaying-remover-<버전>-USB.zip`을 같은 방법으로 설치하면 앱을 지웁니다. 그 뒤 `k8np.keys`, Installer, Remover를 Uninstall합니다.
+- 앱만 잠시 끄려면 앱에서 "표시 켜기"를 끕니다.
+
 이전/재생/다음 버튼은 별도 네메시스 패키지 `k8np.keys`(핸들 버튼 키를 대신 보내는 도우미, [nemesis/](nemesis/))가 있어야 동작합니다.
 
 ## 주의
